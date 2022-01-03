@@ -10,7 +10,6 @@ const multer = require("multer");
 const path = require("path");
 const port = process.env.PORT || 5000;
 
-
 dotenv.config();
 app.use(express.json());
 app.use("/images", express.static(path.join(__dirname, "/images")));
@@ -19,8 +18,8 @@ mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify:true
+    // useCreateIndex: true,
+    // useFindAndModify:true
   })
   .then(console.log("Connected to MongoDB"))
   .catch((err) => console.log(err));
@@ -44,9 +43,9 @@ app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/categories", categoryRoute);
 
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-})
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
 
 app.listen(port, () => {
   console.log("Backend is running.");
