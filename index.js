@@ -1,5 +1,7 @@
 const express = require("express");
 const app = express();
+const cors = require('cors');
+app.use(cors());
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const authRoute = require("./routes/auth");
@@ -8,8 +10,6 @@ const postRoute = require("./routes/posts");
 const categoryRoute = require("./routes/categories");
 const multer = require("multer");
 const path = require("path");
-const port = process.env.PORT || 5000;
-
 
 dotenv.config();
 app.use(express.json());
@@ -19,8 +19,8 @@ mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify:true
+    // useCreateIndex: true,
+    // useFindAndModify:true
   })
   .then(console.log("Connected to MongoDB"))
   .catch((err) => console.log(err));
@@ -44,10 +44,6 @@ app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/categories", categoryRoute);
 
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-})
-
-app.listen(port, () => {
+app.listen("5000", () => {
   console.log("Backend is running.");
 });
